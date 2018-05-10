@@ -494,7 +494,7 @@ export function buildLayoutFromSchema(
 ) {
   const schema = JsonPointer.get(jsf.schema, schemaPointer);
   if (!hasOwn(schema, 'type') && !hasOwn(schema, '$ref') &&
-    !hasOwn(schema, 'x-schema-form')
+    !hasOwn(schema, 'x-schema-form') || hasOwn(schema, 'system-generated')
   ) { return null; }
   const newNodeType: string = getInputType(schema);
   if (!isDefined(nodeValue) && (
