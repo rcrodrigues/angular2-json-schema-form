@@ -1,13 +1,17 @@
-import { Injectable, Directive, ElementRef, Input, NgZone, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ViewChild, ViewContainerRef, Inject, ChangeDetectorRef, EventEmitter, forwardRef, Output, NgModule } from '@angular/core';
-import { isEqual, cloneDeep, filter, map, uniqueId } from 'lodash';
-import { FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, Directive, ElementRef, EventEmitter, Inject, Injectable, Input, NgModule, NgZone, Output, ViewChild, ViewContainerRef, forwardRef } from '@angular/core';
+import { cloneDeep, filter, isEqual, map, uniqueId } from 'lodash';
+import { FormArray, FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import * as Ajv from 'ajv';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatStepperModule, MatTabsModule, MatTooltipModule } from '@angular/material';
+import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSlideToggleModule, MatSliderModule, MatStepperModule, MatTabsModule, MatTooltipModule } from '@angular/material';
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
+
 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -36,12 +40,6 @@ var root = {
 	root: root_1
 };
 
-var root$1 = /*#__PURE__*/Object.freeze({
-	default: root,
-	__moduleExports: root,
-	root: root_1
-});
-
 function isFunction(x) {
     return typeof x === 'function';
 }
@@ -52,24 +50,12 @@ var isFunction_1 = {
 	isFunction: isFunction_2
 };
 
-var isFunction$1 = /*#__PURE__*/Object.freeze({
-	default: isFunction_1,
-	__moduleExports: isFunction_1,
-	isFunction: isFunction_2
-});
-
 var isArray_1 = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
 
 
 var isArray = {
 	isArray: isArray_1
 };
-
-var isArray$1 = /*#__PURE__*/Object.freeze({
-	default: isArray,
-	__moduleExports: isArray,
-	isArray: isArray_1
-});
 
 function isObject(x) {
     return x != null && typeof x === 'object';
@@ -81,12 +67,6 @@ var isObject_1 = {
 	isObject: isObject_2
 };
 
-var isObject$1 = /*#__PURE__*/Object.freeze({
-	default: isObject_1,
-	__moduleExports: isObject_1,
-	isObject: isObject_2
-});
-
 // typeof any so that it we don't have to cast when comparing a result to the error object
 var errorObject_1 = { e: {} };
 
@@ -95,22 +75,14 @@ var errorObject = {
 	errorObject: errorObject_1
 };
 
-var errorObject$1 = /*#__PURE__*/Object.freeze({
-	default: errorObject,
-	__moduleExports: errorObject,
-	errorObject: errorObject_1
-});
-
-var errorObject_1$1 = ( errorObject$1 && errorObject ) || errorObject$1;
-
 var tryCatchTarget;
 function tryCatcher() {
     try {
         return tryCatchTarget.apply(this, arguments);
     }
     catch (e) {
-        errorObject_1$1.errorObject.e = e;
-        return errorObject_1$1.errorObject;
+        errorObject.errorObject.e = e;
+        return errorObject.errorObject;
     }
 }
 function tryCatch(fn) {
@@ -120,15 +92,10 @@ function tryCatch(fn) {
 var tryCatch_2 = tryCatch;
 
 
+
 var tryCatch_1 = {
 	tryCatch: tryCatch_2
 };
-
-var tryCatch$1 = /*#__PURE__*/Object.freeze({
-	default: tryCatch_1,
-	__moduleExports: tryCatch_1,
-	tryCatch: tryCatch_2
-});
 
 var __extends = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -158,22 +125,6 @@ var UnsubscriptionError_2 = UnsubscriptionError;
 var UnsubscriptionError_1 = {
 	UnsubscriptionError: UnsubscriptionError_2
 };
-
-var UnsubscriptionError$1 = /*#__PURE__*/Object.freeze({
-	default: UnsubscriptionError_1,
-	__moduleExports: UnsubscriptionError_1,
-	UnsubscriptionError: UnsubscriptionError_2
-});
-
-var isArray_1$1 = ( isArray$1 && isArray ) || isArray$1;
-
-var isObject_1$1 = ( isObject$1 && isObject_1 ) || isObject$1;
-
-var isFunction_1$1 = ( isFunction$1 && isFunction_1 ) || isFunction$1;
-
-var tryCatch_1$1 = ( tryCatch$1 && tryCatch_1 ) || tryCatch$1;
-
-var UnsubscriptionError_1$1 = ( UnsubscriptionError$1 && UnsubscriptionError_1 ) || UnsubscriptionError$1;
 
 /**
  * Represents a disposable resource, such as the execution of an Observable. A
@@ -234,26 +185,26 @@ var Subscription = (function () {
             // then _parent is set to null, and the loop exits
             _parent = ++index < len && _parents[index] || null;
         }
-        if (isFunction_1$1.isFunction(_unsubscribe)) {
-            var trial = tryCatch_1$1.tryCatch(_unsubscribe).call(this);
-            if (trial === errorObject_1$1.errorObject) {
+        if (isFunction_1.isFunction(_unsubscribe)) {
+            var trial = tryCatch_1.tryCatch(_unsubscribe).call(this);
+            if (trial === errorObject.errorObject) {
                 hasErrors = true;
-                errors = errors || (errorObject_1$1.errorObject.e instanceof UnsubscriptionError_1$1.UnsubscriptionError ?
-                    flattenUnsubscriptionErrors(errorObject_1$1.errorObject.e.errors) : [errorObject_1$1.errorObject.e]);
+                errors = errors || (errorObject.errorObject.e instanceof UnsubscriptionError_1.UnsubscriptionError ?
+                    flattenUnsubscriptionErrors(errorObject.errorObject.e.errors) : [errorObject.errorObject.e]);
             }
         }
-        if (isArray_1$1.isArray(_subscriptions)) {
+        if (isArray.isArray(_subscriptions)) {
             index = -1;
             len = _subscriptions.length;
             while (++index < len) {
                 var sub = _subscriptions[index];
-                if (isObject_1$1.isObject(sub)) {
-                    var trial = tryCatch_1$1.tryCatch(sub.unsubscribe).call(sub);
-                    if (trial === errorObject_1$1.errorObject) {
+                if (isObject_1.isObject(sub)) {
+                    var trial = tryCatch_1.tryCatch(sub.unsubscribe).call(sub);
+                    if (trial === errorObject.errorObject) {
                         hasErrors = true;
                         errors = errors || [];
-                        var err = errorObject_1$1.errorObject.e;
-                        if (err instanceof UnsubscriptionError_1$1.UnsubscriptionError) {
+                        var err = errorObject.errorObject.e;
+                        if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
                             errors = errors.concat(flattenUnsubscriptionErrors(err.errors));
                         }
                         else {
@@ -264,7 +215,7 @@ var Subscription = (function () {
             }
         }
         if (hasErrors) {
-            throw new UnsubscriptionError_1$1.UnsubscriptionError(errors);
+            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
         }
     };
     /**
@@ -358,19 +309,13 @@ var Subscription = (function () {
 }());
 var Subscription_2 = Subscription;
 function flattenUnsubscriptionErrors(errors) {
-    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1$1.UnsubscriptionError) ? err.errors : err); }, []);
+    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
 }
 
 
 var Subscription_1 = {
 	Subscription: Subscription_2
 };
-
-var Subscription$1 = /*#__PURE__*/Object.freeze({
-	default: Subscription_1,
-	__moduleExports: Subscription_1,
-	Subscription: Subscription_2
-});
 
 var empty = {
     closed: true,
@@ -384,17 +329,8 @@ var Observer = {
 	empty: empty
 };
 
-var Observer$1 = /*#__PURE__*/Object.freeze({
-	default: Observer,
-	__moduleExports: Observer,
-	empty: empty
-});
-
-var root_1$1 = ( root$1 && root ) || root$1;
-
 var rxSubscriber = createCommonjsModule(function (module, exports) {
-
-var Symbol = root_1$1.root.Symbol;
+var Symbol = root.root.Symbol;
 exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
     Symbol.for('rxSubscriber') : '@@rxSubscriber';
 /**
@@ -403,21 +339,9 @@ exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'f
 exports.$$rxSubscriber = exports.rxSubscriber;
 
 });
+
 var rxSubscriber_1 = rxSubscriber.rxSubscriber;
 var rxSubscriber_2 = rxSubscriber.$$rxSubscriber;
-
-var rxSubscriber$1 = /*#__PURE__*/Object.freeze({
-	default: rxSubscriber,
-	__moduleExports: rxSubscriber,
-	rxSubscriber: rxSubscriber_1,
-	$$rxSubscriber: rxSubscriber_2
-});
-
-var Subscription_1$1 = ( Subscription$1 && Subscription_1 ) || Subscription$1;
-
-var Observer_1 = ( Observer$1 && Observer ) || Observer$1;
-
-var rxSubscriber_1$1 = ( rxSubscriber$1 && rxSubscriber ) || rxSubscriber$1;
 
 var __extends$1 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -456,21 +380,18 @@ var Subscriber = (function (_super) {
         this.isStopped = false;
         switch (arguments.length) {
             case 0:
-                this.destination = Observer_1.empty;
+                this.destination = Observer.empty;
                 break;
             case 1:
                 if (!destinationOrNext) {
-                    this.destination = Observer_1.empty;
+                    this.destination = Observer.empty;
                     break;
                 }
                 if (typeof destinationOrNext === 'object') {
-                    // HACK(benlesh): To resolve an issue where Node users may have multiple
-                    // copies of rxjs in their node_modules directory.
-                    if (isTrustedSubscriber(destinationOrNext)) {
-                        var trustedSubscriber = destinationOrNext[rxSubscriber_1$1.rxSubscriber]();
-                        this.syncErrorThrowable = trustedSubscriber.syncErrorThrowable;
-                        this.destination = trustedSubscriber;
-                        trustedSubscriber.add(this);
+                    if (destinationOrNext instanceof Subscriber) {
+                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
+                        this.destination = destinationOrNext;
+                        this.destination.add(this);
                     }
                     else {
                         this.syncErrorThrowable = true;
@@ -484,7 +405,7 @@ var Subscriber = (function (_super) {
                 break;
         }
     }
-    Subscriber.prototype[rxSubscriber_1$1.rxSubscriber] = function () { return this; };
+    Subscriber.prototype[rxSubscriber.rxSubscriber] = function () { return this; };
     /**
      * A static factory for a Subscriber, given a (potentially partial) definition
      * of an Observer.
@@ -556,7 +477,7 @@ var Subscriber = (function (_super) {
         this.destination.complete();
         this.unsubscribe();
     };
-    /** @deprecated internal use only */ Subscriber.prototype._unsubscribeAndRecycle = function () {
+    Subscriber.prototype._unsubscribeAndRecycle = function () {
         var _a = this, _parent = _a._parent, _parents = _a._parents;
         this._parent = null;
         this._parents = null;
@@ -568,7 +489,7 @@ var Subscriber = (function (_super) {
         return this;
     };
     return Subscriber;
-}(Subscription_1$1.Subscription));
+}(Subscription_1.Subscription));
 var Subscriber_2 = Subscriber;
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -582,16 +503,16 @@ var SafeSubscriber = (function (_super) {
         this._parentSubscriber = _parentSubscriber;
         var next;
         var context = this;
-        if (isFunction_1$1.isFunction(observerOrNext)) {
+        if (isFunction_1.isFunction(observerOrNext)) {
             next = observerOrNext;
         }
         else if (observerOrNext) {
             next = observerOrNext.next;
             error = observerOrNext.error;
             complete = observerOrNext.complete;
-            if (observerOrNext !== Observer_1.empty) {
+            if (observerOrNext !== Observer.empty) {
                 context = Object.create(observerOrNext);
-                if (isFunction_1$1.isFunction(context.unsubscribe)) {
+                if (isFunction_1.isFunction(context.unsubscribe)) {
                     this.add(context.unsubscribe.bind(context));
                 }
                 context.unsubscribe = this.unsubscribe.bind(this);
@@ -677,7 +598,7 @@ var SafeSubscriber = (function (_super) {
         }
         return false;
     };
-    /** @deprecated internal use only */ SafeSubscriber.prototype._unsubscribe = function () {
+    SafeSubscriber.prototype._unsubscribe = function () {
         var _parentSubscriber = this._parentSubscriber;
         this._context = null;
         this._parentSubscriber = null;
@@ -685,36 +606,25 @@ var SafeSubscriber = (function (_super) {
     };
     return SafeSubscriber;
 }(Subscriber));
-function isTrustedSubscriber(obj) {
-    return obj instanceof Subscriber || ('syncErrorThrowable' in obj && obj[rxSubscriber_1$1.rxSubscriber]);
-}
 
 
 var Subscriber_1 = {
 	Subscriber: Subscriber_2
 };
 
-var Subscriber$1 = /*#__PURE__*/Object.freeze({
-	default: Subscriber_1,
-	__moduleExports: Subscriber_1,
-	Subscriber: Subscriber_2
-});
-
-var Subscriber_1$1 = ( Subscriber$1 && Subscriber_1 ) || Subscriber$1;
-
 function toSubscriber(nextOrObserver, error, complete) {
     if (nextOrObserver) {
-        if (nextOrObserver instanceof Subscriber_1$1.Subscriber) {
+        if (nextOrObserver instanceof Subscriber_1.Subscriber) {
             return nextOrObserver;
         }
-        if (nextOrObserver[rxSubscriber_1$1.rxSubscriber]) {
-            return nextOrObserver[rxSubscriber_1$1.rxSubscriber]();
+        if (nextOrObserver[rxSubscriber.rxSubscriber]) {
+            return nextOrObserver[rxSubscriber.rxSubscriber]();
         }
     }
     if (!nextOrObserver && !error && !complete) {
-        return new Subscriber_1$1.Subscriber(Observer_1.empty);
+        return new Subscriber_1.Subscriber(Observer.empty);
     }
-    return new Subscriber_1$1.Subscriber(nextOrObserver, error, complete);
+    return new Subscriber_1.Subscriber(nextOrObserver, error, complete);
 }
 var toSubscriber_2 = toSubscriber;
 
@@ -723,14 +633,7 @@ var toSubscriber_1 = {
 	toSubscriber: toSubscriber_2
 };
 
-var toSubscriber$1 = /*#__PURE__*/Object.freeze({
-	default: toSubscriber_1,
-	__moduleExports: toSubscriber_1,
-	toSubscriber: toSubscriber_2
-});
-
 var observable = createCommonjsModule(function (module, exports) {
-
 function getSymbolObservable(context) {
     var $$observable;
     var Symbol = context.Symbol;
@@ -749,24 +652,17 @@ function getSymbolObservable(context) {
     return $$observable;
 }
 exports.getSymbolObservable = getSymbolObservable;
-exports.observable = getSymbolObservable(root_1$1.root);
+exports.observable = getSymbolObservable(root.root);
 /**
  * @deprecated use observable instead
  */
 exports.$$observable = exports.observable;
 
 });
+
 var observable_1 = observable.getSymbolObservable;
 var observable_2 = observable.observable;
 var observable_3 = observable.$$observable;
-
-var observable$1 = /*#__PURE__*/Object.freeze({
-	default: observable,
-	__moduleExports: observable,
-	getSymbolObservable: observable_1,
-	observable: observable_2,
-	$$observable: observable_3
-});
 
 /* tslint:disable:no-empty */
 function noop() { }
@@ -776,14 +672,6 @@ var noop_2 = noop;
 var noop_1 = {
 	noop: noop_2
 };
-
-var noop$1 = /*#__PURE__*/Object.freeze({
-	default: noop_1,
-	__moduleExports: noop_1,
-	noop: noop_2
-});
-
-var noop_1$1 = ( noop$1 && noop_1 ) || noop$1;
 
 /* tslint:enable:max-line-length */
 function pipe() {
@@ -797,7 +685,7 @@ var pipe_2 = pipe;
 /* @internal */
 function pipeFromArray(fns) {
     if (!fns) {
-        return noop_1$1.noop;
+        return noop_1.noop;
     }
     if (fns.length === 1) {
         return fns[0];
@@ -813,19 +701,6 @@ var pipe_1 = {
 	pipe: pipe_2,
 	pipeFromArray: pipeFromArray_1
 };
-
-var pipe$1 = /*#__PURE__*/Object.freeze({
-	default: pipe_1,
-	__moduleExports: pipe_1,
-	pipe: pipe_2,
-	pipeFromArray: pipeFromArray_1
-});
-
-var toSubscriber_1$1 = ( toSubscriber$1 && toSubscriber_1 ) || toSubscriber$1;
-
-var observable_1$1 = ( observable$1 && observable ) || observable$1;
-
-var pipe_1$1 = ( pipe$1 && pipe_1 ) || pipe$1;
 
 /**
  * A representation of any set of values over any amount of time. This is the most basic building block
@@ -855,10 +730,10 @@ var Observable = (function () {
      * @return {Observable} a new observable with the Operator applied
      */
     Observable.prototype.lift = function (operator) {
-        var observable = new Observable();
-        observable.source = this;
-        observable.operator = operator;
-        return observable;
+        var observable$$1 = new Observable();
+        observable$$1.source = this;
+        observable$$1.operator = operator;
+        return observable$$1;
     };
     /**
      * Invokes an execution of an Observable and registers Observer handlers for notifications it will emit.
@@ -976,7 +851,7 @@ var Observable = (function () {
      */
     Observable.prototype.subscribe = function (observerOrNext, error, complete) {
         var operator = this.operator;
-        var sink = toSubscriber_1$1.toSubscriber(observerOrNext, error, complete);
+        var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
         if (operator) {
             operator.call(sink, this.source);
         }
@@ -1011,11 +886,11 @@ var Observable = (function () {
     Observable.prototype.forEach = function (next, PromiseCtor) {
         var _this = this;
         if (!PromiseCtor) {
-            if (root_1$1.root.Rx && root_1$1.root.Rx.config && root_1$1.root.Rx.config.Promise) {
-                PromiseCtor = root_1$1.root.Rx.config.Promise;
+            if (root.root.Rx && root.root.Rx.config && root.root.Rx.config.Promise) {
+                PromiseCtor = root.root.Rx.config.Promise;
             }
-            else if (root_1$1.root.Promise) {
-                PromiseCtor = root_1$1.root.Promise;
+            else if (root.root.Promise) {
+                PromiseCtor = root.root.Promise;
             }
         }
         if (!PromiseCtor) {
@@ -1051,7 +926,7 @@ var Observable = (function () {
             }, reject, resolve);
         });
     };
-    /** @deprecated internal use only */ Observable.prototype._subscribe = function (subscriber) {
+    Observable.prototype._subscribe = function (subscriber) {
         return this.source.subscribe(subscriber);
     };
     /**
@@ -1059,7 +934,7 @@ var Observable = (function () {
      * @method Symbol.observable
      * @return {Observable} this instance of the observable
      */
-    Observable.prototype[observable_1$1.observable] = function () {
+    Observable.prototype[observable.observable] = function () {
         return this;
     };
     /* tslint:enable:max-line-length */
@@ -1089,17 +964,17 @@ var Observable = (function () {
         if (operations.length === 0) {
             return this;
         }
-        return pipe_1$1.pipeFromArray(operations)(this);
+        return pipe_1.pipeFromArray(operations)(this);
     };
     /* tslint:enable:max-line-length */
     Observable.prototype.toPromise = function (PromiseCtor) {
         var _this = this;
         if (!PromiseCtor) {
-            if (root_1$1.root.Rx && root_1$1.root.Rx.config && root_1$1.root.Rx.config.Promise) {
-                PromiseCtor = root_1$1.root.Rx.config.Promise;
+            if (root.root.Rx && root.root.Rx.config && root.root.Rx.config.Promise) {
+                PromiseCtor = root.root.Rx.config.Promise;
             }
-            else if (root_1$1.root.Promise) {
-                PromiseCtor = root_1$1.root.Promise;
+            else if (root.root.Promise) {
+                PromiseCtor = root.root.Promise;
             }
         }
         if (!PromiseCtor) {
@@ -1131,14 +1006,6 @@ var Observable_2 = Observable;
 var Observable_1 = {
 	Observable: Observable_2
 };
-
-var Observable$1 = /*#__PURE__*/Object.freeze({
-	default: Observable_1,
-	__moduleExports: Observable_1,
-	Observable: Observable_2
-});
-
-var Observable_1$1 = ( Observable$1 && Observable_1 ) || Observable$1;
 
 var __extends$2 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -1188,7 +1055,7 @@ var PromiseObservable = (function (_super) {
     PromiseObservable.create = function (promise, scheduler) {
         return new PromiseObservable(promise, scheduler);
     };
-    /** @deprecated internal use only */ PromiseObservable.prototype._subscribe = function (subscriber) {
+    PromiseObservable.prototype._subscribe = function (subscriber) {
         var _this = this;
         var promise = this.promise;
         var scheduler = this.scheduler;
@@ -1214,7 +1081,7 @@ var PromiseObservable = (function (_super) {
                 })
                     .then(null, function (err) {
                     // escape the promise trap, throw unhandled errors
-                    root_1$1.root.setTimeout(function () { throw err; });
+                    root.root.setTimeout(function () { throw err; });
                 });
             }
         }
@@ -1238,13 +1105,13 @@ var PromiseObservable = (function (_super) {
                 })
                     .then(null, function (err) {
                     // escape the promise trap, throw unhandled errors
-                    root_1$1.root.setTimeout(function () { throw err; });
+                    root.root.setTimeout(function () { throw err; });
                 });
             }
         }
     };
     return PromiseObservable;
-}(Observable_1$1.Observable));
+}(Observable_1.Observable));
 var PromiseObservable_2 = PromiseObservable;
 function dispatchNext(arg) {
     var value = arg.value, subscriber = arg.subscriber;
@@ -1265,19 +1132,11 @@ var PromiseObservable_1 = {
 	PromiseObservable: PromiseObservable_2
 };
 
-var PromiseObservable$1 = /*#__PURE__*/Object.freeze({
-	default: PromiseObservable_1,
-	__moduleExports: PromiseObservable_1,
-	PromiseObservable: PromiseObservable_2
-});
-
-var PromiseObservable_1$1 = ( PromiseObservable$1 && PromiseObservable_1 ) || PromiseObservable$1;
-
-var fromPromise_1 = PromiseObservable_1$1.PromiseObservable.create;
+var fromPromise_1 = PromiseObservable_1.PromiseObservable.create;
 
 // HACK: this is here for backward compatability
 // TODO(benlesh): remove this in v6.
-var toPromise_1 = Observable_1$1.Observable.prototype.toPromise;
+var toPromise_1 = Observable_1.Observable.prototype.toPromise;
 
 function _executeValidators(control, validators, invert = false) {
     return validators.map(validator => validator(control, invert));
@@ -1288,7 +1147,7 @@ function _executeAsyncValidators(control, validators, invert = false) {
 function _mergeObjects(...objects) {
     let mergedObject = {};
     for (let currentObject of objects) {
-        if (isObject$2(currentObject)) {
+        if (isObject$1(currentObject)) {
             for (let key of Object.keys(currentObject)) {
                 const currentValue = currentObject[key];
                 const mergedValue = mergedObject[key];
@@ -1317,7 +1176,7 @@ function isEmpty(value) {
     if (isArray$2(value)) {
         return !value.length;
     }
-    if (isObject$2(value)) {
+    if (isObject$1(value)) {
         return !Object.keys(value).length;
     }
     return value === undefined || value === null || value === '';
@@ -1350,10 +1209,10 @@ function isBoolean(value, option = null) {
     return value === true || value === 1 || value === 'true' || value === '1' ||
         value === false || value === 0 || value === 'false' || value === '0';
 }
-function isFunction$2(item) {
+function isFunction$1(item) {
     return typeof item === 'function';
 }
-function isObject$2(item) {
+function isObject$1(item) {
     return item !== null && typeof item === 'object' &&
         Object.prototype.toString.call(item) === '[object Object]';
 }
@@ -1373,6 +1232,7 @@ function isSet(item) {
     return typeof item === 'object' &&
         Object.prototype.toString.call(item) === '[object Set]';
 }
+
 function getType(value, strict = false) {
     if (!isDefined(value)) {
         return 'null';
@@ -1380,7 +1240,7 @@ function getType(value, strict = false) {
     if (isArray$2(value)) {
         return 'array';
     }
-    if (isObject$2(value)) {
+    if (isObject$1(value)) {
         return 'object';
     }
     if (isBoolean(value, 'strict')) {
@@ -1594,7 +1454,7 @@ function copy(object, errors = false) {
     if (isArray$2(object)) {
         return [...object];
     }
-    if (isObject$2(object)) {
+    if (isObject$1(object)) {
         return Object.assign({}, object);
     }
     if (errors) {
@@ -1606,14 +1466,14 @@ function forEach(object, fn, recurse = false, rootObject = object, errors = fals
     if (isEmpty(object)) {
         return;
     }
-    if ((isObject$2(object) || isArray$2(object)) && typeof fn === 'function') {
+    if ((isObject$1(object) || isArray$2(object)) && typeof fn === 'function') {
         for (let key of Object.keys(object)) {
             const value = object[key];
-            if (recurse === 'bottom-up' && (isObject$2(value) || isArray$2(value))) {
+            if (recurse === 'bottom-up' && (isObject$1(value) || isArray$2(value))) {
                 forEach(value, fn, recurse, rootObject);
             }
             fn(value, key, object, rootObject);
-            if (recurse === 'top-down' && (isObject$2(value) || isArray$2(value))) {
+            if (recurse === 'top-down' && (isObject$1(value) || isArray$2(value))) {
                 forEach(value, fn, recurse, rootObject);
             }
         }
@@ -1623,7 +1483,7 @@ function forEach(object, fn, recurse = false, rootObject = object, errors = fals
             console.error('forEach error: Iterator must be a function.');
             console.error('function', fn);
         }
-        if (!isObject$2(object) && !isArray$2(object)) {
+        if (!isObject$1(object) && !isArray$2(object)) {
             console.error('forEach error: Input object must be an object or array.');
             console.error('object', object);
         }
@@ -1633,7 +1493,7 @@ function forEachCopy(object, fn, errors = false) {
     if (!hasValue(object)) {
         return;
     }
-    if ((isObject$2(object) || isArray$2(object)) && typeof object !== 'function') {
+    if ((isObject$1(object) || isArray$2(object)) && typeof object !== 'function') {
         let newObject = isArray$2(object) ? [] : {};
         for (let key of Object.keys(object)) {
             newObject[key] = fn(object[key], key, object);
@@ -1645,7 +1505,7 @@ function forEachCopy(object, fn, errors = false) {
             console.error('forEachCopy error: Iterator must be a function.');
             console.error('function', fn);
         }
-        if (!isObject$2(object) && !isArray$2(object)) {
+        if (!isObject$1(object) && !isArray$2(object)) {
             console.error('forEachCopy error: Input object must be an object or array.');
             console.error('object', object);
         }
@@ -1653,7 +1513,7 @@ function forEachCopy(object, fn, errors = false) {
 }
 function hasOwn(object, property) {
     if (!object || !['number', 'string', 'symbol'].includes(typeof property) ||
-        (!isObject$2(object) && !isArray$2(object) && !isMap(object) && !isSet(object))) {
+        (!isObject$1(object) && !isArray$2(object) && !isMap(object) && !isSet(object))) {
         return false;
     }
     if (isMap(object) || isSet(object)) {
@@ -1668,10 +1528,10 @@ function hasOwn(object, property) {
     return object.hasOwnProperty(property);
 }
 function mergeFilteredObject(targetObject, sourceObject, excludeKeys = [], keyFn = (key) => key, valFn = (val) => val) {
-    if (!isObject$2(sourceObject)) {
+    if (!isObject$1(sourceObject)) {
         return targetObject;
     }
-    if (!isObject$2(targetObject)) {
+    if (!isObject$1(targetObject)) {
         targetObject = {};
     }
     for (let key of Object.keys(sourceObject)) {
@@ -1956,7 +1816,7 @@ class JsonPointer {
                 }
                 parentObject.splice(lastKey, 1);
             }
-            else if (isObject$2(parentObject)) {
+            else if (isObject$1(parentObject)) {
                 delete parentObject[lastKey];
             }
             return object;
@@ -1985,7 +1845,7 @@ class JsonPointer {
         if (!bottomUp) {
             fn(object, pointer, rootObject);
         }
-        if (isObject$2(object) || isArray$2(object)) {
+        if (isObject$1(object) || isArray$2(object)) {
             for (let key of Object.keys(object)) {
                 const newPointer = pointer + '/' + this.escape(key);
                 this.forEachDeep(object[key], fn, bottomUp, newPointer, rootObject);
@@ -2000,7 +1860,7 @@ class JsonPointer {
             console.error(`forEachDeepCopy error: Iterator is not a function:`, fn);
             return null;
         }
-        if (isObject$2(object) || isArray$2(object)) {
+        if (isObject$1(object) || isArray$2(object)) {
             let newObject = isArray$2(object) ? [...object] : Object.assign({}, object);
             if (!bottomUp) {
                 newObject = fn(newObject, pointer, rootObject);
@@ -2217,10 +2077,10 @@ class JsonPointer {
                             this.toSchemaPointer(pointerArray, schema.additionalItems);
                     }
                 }
-                else if (isObject$2(schema.items)) {
+                else if (isObject$1(schema.items)) {
                     return '/items' + this.toSchemaPointer(pointerArray, schema.items);
                 }
-                else if (isObject$2(schema.additionalItems)) {
+                else if (isObject$1(schema.additionalItems)) {
                     return '/additionalItems' +
                         this.toSchemaPointer(pointerArray, schema.additionalItems);
                 }
@@ -2252,7 +2112,7 @@ class JsonPointer {
                 return pointerSuffix === null ? null : '/' + secondKey + pointerSuffix;
             }
             else if (firstKey === 'additionalItems' ||
-                (firstKey === 'items' && isObject$2(schema.items))) {
+                (firstKey === 'items' && isObject$1(schema.items))) {
                 const pointerSuffix = this.toDataPointer(pointerArray, schema[firstKey]);
                 return pointerSuffix === null ? null : '/-' + pointerSuffix;
             }
@@ -2344,6 +2204,7 @@ class JsonPointer {
 JsonPointer.decorators = [
     { type: Injectable },
 ];
+JsonPointer.ctorParameters = () => [];
 
 var __extends$3 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2412,7 +2273,7 @@ var EmptyObservable = (function (_super) {
         var subscriber = arg.subscriber;
         subscriber.complete();
     };
-    /** @deprecated internal use only */ EmptyObservable.prototype._subscribe = function (subscriber) {
+    EmptyObservable.prototype._subscribe = function (subscriber) {
         var scheduler = this.scheduler;
         if (scheduler) {
             return scheduler.schedule(EmptyObservable.dispatch, 0, { subscriber: subscriber });
@@ -2422,7 +2283,7 @@ var EmptyObservable = (function (_super) {
         }
     };
     return EmptyObservable;
-}(Observable_1$1.Observable));
+}(Observable_1.Observable));
 var EmptyObservable_2 = EmptyObservable;
 
 
@@ -2430,24 +2291,12 @@ var EmptyObservable_1 = {
 	EmptyObservable: EmptyObservable_2
 };
 
-var EmptyObservable$1 = /*#__PURE__*/Object.freeze({
-	default: EmptyObservable_1,
-	__moduleExports: EmptyObservable_1,
-	EmptyObservable: EmptyObservable_2
-});
-
 var isArrayLike_1 = (function (x) { return x && typeof x.length === 'number'; });
 
 
 var isArrayLike = {
 	isArrayLike: isArrayLike_1
 };
-
-var isArrayLike$1 = /*#__PURE__*/Object.freeze({
-	default: isArrayLike,
-	__moduleExports: isArrayLike,
-	isArrayLike: isArrayLike_1
-});
 
 function isPromise$1(value) {
     return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
@@ -2459,16 +2308,9 @@ var isPromise_1 = {
 	isPromise: isPromise_2
 };
 
-var isPromise$2 = /*#__PURE__*/Object.freeze({
-	default: isPromise_1,
-	__moduleExports: isPromise_1,
-	isPromise: isPromise_2
-});
-
 var iterator = createCommonjsModule(function (module, exports) {
-
-function symbolIteratorPonyfill(root) {
-    var Symbol = root.Symbol;
+function symbolIteratorPonyfill(root$$2) {
+    var Symbol = root$$2.Symbol;
     if (typeof Symbol === 'function') {
         if (!Symbol.iterator) {
             Symbol.iterator = Symbol('iterator polyfill');
@@ -2477,11 +2319,11 @@ function symbolIteratorPonyfill(root) {
     }
     else {
         // [for Mozilla Gecko 27-35:](https://mzl.la/2ewE1zC)
-        var Set_1 = root.Set;
+        var Set_1 = root$$2.Set;
         if (Set_1 && typeof new Set_1()['@@iterator'] === 'function') {
             return '@@iterator';
         }
-        var Map_1 = root.Map;
+        var Map_1 = root$$2.Map;
         // required for compatability with es6-shim
         if (Map_1) {
             var keys = Object.getOwnPropertyNames(Map_1.prototype);
@@ -2497,24 +2339,17 @@ function symbolIteratorPonyfill(root) {
     }
 }
 exports.symbolIteratorPonyfill = symbolIteratorPonyfill;
-exports.iterator = symbolIteratorPonyfill(root_1$1.root);
+exports.iterator = symbolIteratorPonyfill(root.root);
 /**
  * @deprecated use iterator instead
  */
 exports.$$iterator = exports.iterator;
 
 });
+
 var iterator_1 = iterator.symbolIteratorPonyfill;
 var iterator_2 = iterator.iterator;
 var iterator_3 = iterator.$$iterator;
-
-var iterator$1 = /*#__PURE__*/Object.freeze({
-	default: iterator,
-	__moduleExports: iterator,
-	symbolIteratorPonyfill: iterator_1,
-	iterator: iterator_2,
-	$$iterator: iterator_3
-});
 
 var __extends$4 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2548,7 +2383,7 @@ var InnerSubscriber = (function (_super) {
         this.unsubscribe();
     };
     return InnerSubscriber;
-}(Subscriber_1$1.Subscriber));
+}(Subscriber_1.Subscriber));
 var InnerSubscriber_2 = InnerSubscriber;
 
 
@@ -2556,26 +2391,12 @@ var InnerSubscriber_1 = {
 	InnerSubscriber: InnerSubscriber_2
 };
 
-var InnerSubscriber$1 = /*#__PURE__*/Object.freeze({
-	default: InnerSubscriber_1,
-	__moduleExports: InnerSubscriber_1,
-	InnerSubscriber: InnerSubscriber_2
-});
-
-var isArrayLike_1$1 = ( isArrayLike$1 && isArrayLike ) || isArrayLike$1;
-
-var isPromise_1$1 = ( isPromise$2 && isPromise_1 ) || isPromise$2;
-
-var iterator_1$1 = ( iterator$1 && iterator ) || iterator$1;
-
-var InnerSubscriber_1$1 = ( InnerSubscriber$1 && InnerSubscriber_1 ) || InnerSubscriber$1;
-
 function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
-    var destination = new InnerSubscriber_1$1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
+    var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
     if (destination.closed) {
         return null;
     }
-    if (result instanceof Observable_1$1.Observable) {
+    if (result instanceof Observable_1.Observable) {
         if (result._isScalar) {
             destination.next(result.value);
             destination.complete();
@@ -2586,7 +2407,7 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
             return result.subscribe(destination);
         }
     }
-    else if (isArrayLike_1$1.isArrayLike(result)) {
+    else if (isArrayLike.isArrayLike(result)) {
         for (var i = 0, len = result.length; i < len && !destination.closed; i++) {
             destination.next(result[i]);
         }
@@ -2594,7 +2415,7 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
             destination.complete();
         }
     }
-    else if (isPromise_1$1.isPromise(result)) {
+    else if (isPromise_1.isPromise(result)) {
         result.then(function (value) {
             if (!destination.closed) {
                 destination.next(value);
@@ -2603,14 +2424,14 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
         }, function (err) { return destination.error(err); })
             .then(null, function (err) {
             // Escaping the Promise trap: globally throw unhandled errors
-            root_1$1.root.setTimeout(function () { throw err; });
+            root.root.setTimeout(function () { throw err; });
         });
         return destination;
     }
-    else if (result && typeof result[iterator_1$1.iterator] === 'function') {
-        var iterator = result[iterator_1$1.iterator]();
+    else if (result && typeof result[iterator.iterator] === 'function') {
+        var iterator$$1 = result[iterator.iterator]();
         do {
-            var item = iterator.next();
+            var item = iterator$$1.next();
             if (item.done) {
                 destination.complete();
                 break;
@@ -2621,17 +2442,17 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
             }
         } while (true);
     }
-    else if (result && typeof result[observable_1$1.observable] === 'function') {
-        var obs = result[observable_1$1.observable]();
+    else if (result && typeof result[observable.observable] === 'function') {
+        var obs = result[observable.observable]();
         if (typeof obs.subscribe !== 'function') {
             destination.error(new TypeError('Provided object does not correctly implement Symbol.observable'));
         }
         else {
-            return obs.subscribe(new InnerSubscriber_1$1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
+            return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
         }
     }
     else {
-        var value = isObject_1$1.isObject(result) ? 'an invalid object' : "'" + result + "'";
+        var value = isObject_1.isObject(result) ? 'an invalid object' : "'" + result + "'";
         var msg = ("You provided " + value + " where a stream was expected.")
             + ' You can provide an Observable, Promise, Array, or Iterable.';
         destination.error(new TypeError(msg));
@@ -2644,12 +2465,6 @@ var subscribeToResult_2 = subscribeToResult;
 var subscribeToResult_1 = {
 	subscribeToResult: subscribeToResult_2
 };
-
-var subscribeToResult$1 = /*#__PURE__*/Object.freeze({
-	default: subscribeToResult_1,
-	__moduleExports: subscribeToResult_1,
-	subscribeToResult: subscribeToResult_2
-});
 
 var __extends$5 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2677,25 +2492,13 @@ var OuterSubscriber = (function (_super) {
         this.destination.complete();
     };
     return OuterSubscriber;
-}(Subscriber_1$1.Subscriber));
+}(Subscriber_1.Subscriber));
 var OuterSubscriber_2 = OuterSubscriber;
 
 
 var OuterSubscriber_1 = {
 	OuterSubscriber: OuterSubscriber_2
 };
-
-var OuterSubscriber$1 = /*#__PURE__*/Object.freeze({
-	default: OuterSubscriber_1,
-	__moduleExports: OuterSubscriber_1,
-	OuterSubscriber: OuterSubscriber_2
-});
-
-var EmptyObservable_1$1 = ( EmptyObservable$1 && EmptyObservable_1 ) || EmptyObservable$1;
-
-var subscribeToResult_1$1 = ( subscribeToResult$1 && subscribeToResult_1 ) || subscribeToResult$1;
-
-var OuterSubscriber_1$1 = ( OuterSubscriber$1 && OuterSubscriber_1 ) || OuterSubscriber$1;
 
 var __extends$6 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2823,7 +2626,7 @@ var ForkJoinObservable = (function (_super) {
             sources[_i - 0] = arguments[_i];
         }
         if (sources === null || arguments.length === 0) {
-            return new EmptyObservable_1$1.EmptyObservable();
+            return new EmptyObservable_1.EmptyObservable();
         }
         var resultSelector = null;
         if (typeof sources[sources.length - 1] === 'function') {
@@ -2831,19 +2634,19 @@ var ForkJoinObservable = (function (_super) {
         }
         // if the first and only other argument besides the resultSelector is an array
         // assume it's been called with `forkJoin([obs1, obs2, obs3], resultSelector)`
-        if (sources.length === 1 && isArray_1$1.isArray(sources[0])) {
+        if (sources.length === 1 && isArray.isArray(sources[0])) {
             sources = sources[0];
         }
         if (sources.length === 0) {
-            return new EmptyObservable_1$1.EmptyObservable();
+            return new EmptyObservable_1.EmptyObservable();
         }
         return new ForkJoinObservable(sources, resultSelector);
     };
-    /** @deprecated internal use only */ ForkJoinObservable.prototype._subscribe = function (subscriber) {
+    ForkJoinObservable.prototype._subscribe = function (subscriber) {
         return new ForkJoinSubscriber(subscriber, this.sources, this.resultSelector);
     };
     return ForkJoinObservable;
-}(Observable_1$1.Observable));
+}(Observable_1.Observable));
 var ForkJoinObservable_2 = ForkJoinObservable;
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -2863,7 +2666,7 @@ var ForkJoinSubscriber = (function (_super) {
         this.values = new Array(len);
         for (var i = 0; i < len; i++) {
             var source = sources[i];
-            var innerSubscription = subscribeToResult_1$1.subscribeToResult(this, source, null, i);
+            var innerSubscription = subscribeToResult_1.subscribeToResult(this, source, null, i);
             if (innerSubscription) {
                 innerSubscription.outerIndex = i;
                 this.add(innerSubscription);
@@ -2896,22 +2699,14 @@ var ForkJoinSubscriber = (function (_super) {
         destination.complete();
     };
     return ForkJoinSubscriber;
-}(OuterSubscriber_1$1.OuterSubscriber));
+}(OuterSubscriber_1.OuterSubscriber));
 
 
 var ForkJoinObservable_1 = {
 	ForkJoinObservable: ForkJoinObservable_2
 };
 
-var ForkJoinObservable$1 = /*#__PURE__*/Object.freeze({
-	default: ForkJoinObservable_1,
-	__moduleExports: ForkJoinObservable_1,
-	ForkJoinObservable: ForkJoinObservable_2
-});
-
-var ForkJoinObservable_1$1 = ( ForkJoinObservable$1 && ForkJoinObservable_1 ) || ForkJoinObservable$1;
-
-var forkJoin_1 = ForkJoinObservable_1$1.ForkJoinObservable.create;
+var forkJoin_1 = ForkJoinObservable_1.ForkJoinObservable.create;
 
 var __extends$7 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2999,22 +2794,13 @@ var MapSubscriber = (function (_super) {
         this.destination.next(result);
     };
     return MapSubscriber;
-}(Subscriber_1$1.Subscriber));
+}(Subscriber_1.Subscriber));
 
 
 var map_1 = {
 	map: map_2,
 	MapOperator: MapOperator_1
 };
-
-var map$2 = /*#__PURE__*/Object.freeze({
-	default: map_1,
-	__moduleExports: map_1,
-	map: map_2,
-	MapOperator: MapOperator_1
-});
-
-var map_1$1 = ( map$2 && map_1 ) || map$2;
 
 /**
  * Applies a given `project` function to each value emitted by the source
@@ -3049,10 +2835,10 @@ var map_1$1 = ( map$2 && map_1 ) || map$2;
  * @method map
  * @owner Observable
  */
-function map$3(project, thisArg) {
-    return map_1$1.map(project, thisArg)(this);
+function map$2(project, thisArg) {
+    return map_1.map(project, thisArg)(this);
 }
-var map_3 = map$3;
+var map_3 = map$2;
 
 const jsonSchemaFormatTests = {
     'date': /^\d\d\d\d-[0-1]\d-[0-3]\d$/,
@@ -3579,7 +3365,7 @@ class JsonValidators {
 
 function mergeSchemas(...schemas) {
     schemas = schemas.filter(schema => !isEmpty(schema));
-    if (schemas.some(schema => !isObject$2(schema))) {
+    if (schemas.some(schema => !isObject$1(schema))) {
         return null;
     }
     const combinedSchema = {};
@@ -3604,7 +3390,7 @@ function mergeSchemas(...schemas) {
                     case 'additionalProperties':
                     case 'contains':
                     case 'propertyNames':
-                        if (isObject$2(combinedValue) && isObject$2(schemaValue)) {
+                        if (isObject$1(combinedValue) && isObject$1(schemaValue)) {
                             combinedSchema[key] = mergeSchemas(combinedValue, schemaValue);
                         }
                         else if (key === 'additionalProperties' &&
@@ -3629,7 +3415,7 @@ function mergeSchemas(...schemas) {
                         }
                         break;
                     case 'definitions':
-                        if (isObject$2(combinedValue) && isObject$2(schemaValue)) {
+                        if (isObject$1(combinedValue) && isObject$1(schemaValue)) {
                             const combinedObject = Object.assign({}, combinedValue);
                             for (const subKey of Object.keys(schemaValue)) {
                                 if (!hasOwn(combinedObject, subKey) ||
@@ -3647,7 +3433,7 @@ function mergeSchemas(...schemas) {
                         }
                         break;
                     case 'dependencies':
-                        if (isObject$2(combinedValue) && isObject$2(schemaValue)) {
+                        if (isObject$1(combinedValue) && isObject$1(schemaValue)) {
                             const combinedObject = Object.assign({}, combinedValue);
                             for (const subKey of Object.keys(schemaValue)) {
                                 if (!hasOwn(combinedObject, subKey) ||
@@ -3658,8 +3444,8 @@ function mergeSchemas(...schemas) {
                                     combinedObject[subKey] =
                                         uniqueItems(...combinedObject[subKey], ...schemaValue[subKey]);
                                 }
-                                else if ((isArray$2(schemaValue[subKey]) || isObject$2(schemaValue[subKey])) &&
-                                    (isArray$2(combinedObject[subKey]) || isObject$2(combinedObject[subKey]))) {
+                                else if ((isArray$2(schemaValue[subKey]) || isObject$1(schemaValue[subKey])) &&
+                                    (isArray$2(combinedObject[subKey]) || isObject$1(combinedObject[subKey]))) {
                                     const required = isArray$2(combinedSchema.required) ?
                                         combinedSchema.required : [];
                                     const combinedDependency = isArray$2(combinedObject[subKey]) ?
@@ -3688,14 +3474,14 @@ function mergeSchemas(...schemas) {
                                 return { allOf: [...schemas] };
                             }
                         }
-                        else if (isObject$2(combinedValue) && isObject$2(schemaValue)) {
+                        else if (isObject$1(combinedValue) && isObject$1(schemaValue)) {
                             combinedSchema.items = mergeSchemas(combinedValue, schemaValue);
                         }
-                        else if (isArray$2(combinedValue) && isObject$2(schemaValue)) {
+                        else if (isArray$2(combinedValue) && isObject$1(schemaValue)) {
                             combinedSchema.items =
                                 combinedValue.map(item => mergeSchemas(item, schemaValue));
                         }
-                        else if (isObject$2(combinedValue) && isArray$2(schemaValue)) {
+                        else if (isObject$1(combinedValue) && isArray$2(schemaValue)) {
                             combinedSchema.items =
                                 schemaValue.map(item => mergeSchemas(item, combinedValue));
                         }
@@ -3738,7 +3524,7 @@ function mergeSchemas(...schemas) {
                         }
                         break;
                     case 'not':
-                        if (isObject$2(combinedValue) && isObject$2(schemaValue)) {
+                        if (isObject$1(combinedValue) && isObject$1(schemaValue)) {
                             const notAnyOf = [combinedValue, schemaValue]
                                 .reduce((notAnyOfArray, notSchema) => isArray$2(notSchema.anyOf) &&
                                 Object.keys(notSchema).length === 1 ?
@@ -3751,14 +3537,14 @@ function mergeSchemas(...schemas) {
                         }
                         break;
                     case 'patternProperties':
-                        if (isObject$2(combinedValue) && isObject$2(schemaValue)) {
+                        if (isObject$1(combinedValue) && isObject$1(schemaValue)) {
                             const combinedObject = Object.assign({}, combinedValue);
                             for (const subKey of Object.keys(schemaValue)) {
                                 if (!hasOwn(combinedObject, subKey) ||
                                     isEqual(combinedObject[subKey], schemaValue[subKey])) {
                                     combinedObject[subKey] = schemaValue[subKey];
                                 }
-                                else if (isObject$2(schemaValue[subKey]) && isObject$2(combinedObject[subKey])) {
+                                else if (isObject$1(schemaValue[subKey]) && isObject$1(combinedObject[subKey])) {
                                     combinedObject[subKey] =
                                         mergeSchemas(combinedObject[subKey], schemaValue[subKey]);
                                 }
@@ -3773,7 +3559,7 @@ function mergeSchemas(...schemas) {
                         }
                         break;
                     case 'properties':
-                        if (isObject$2(combinedValue) && isObject$2(schemaValue)) {
+                        if (isObject$1(combinedValue) && isObject$1(schemaValue)) {
                             const combinedObject = Object.assign({}, combinedValue);
                             if (hasOwn(schemaValue, 'additionalProperties')) {
                                 Object.keys(combinedValue)
@@ -3782,7 +3568,7 @@ function mergeSchemas(...schemas) {
                                     if (schemaValue.additionalProperties === false) {
                                         delete combinedObject[nonMatchingKey];
                                     }
-                                    else if (isObject$2(schemaValue.additionalProperties)) {
+                                    else if (isObject$1(schemaValue.additionalProperties)) {
                                         combinedObject[nonMatchingKey] = mergeSchemas(combinedObject[nonMatchingKey], schemaValue.additionalProperties);
                                     }
                                 });
@@ -3794,12 +3580,12 @@ function mergeSchemas(...schemas) {
                                 }
                                 else if (!hasOwn(combinedObject, subKey) &&
                                     hasOwn(combinedObject, 'additionalProperties')) {
-                                    if (isObject$2(combinedObject.additionalProperties)) {
+                                    if (isObject$1(combinedObject.additionalProperties)) {
                                         combinedObject[subKey] = mergeSchemas(combinedObject.additionalProperties, schemaValue[subKey]);
                                     }
                                 }
-                                else if (isObject$2(schemaValue[subKey]) &&
-                                    isObject$2(combinedObject[subKey])) {
+                                else if (isObject$1(schemaValue[subKey]) &&
+                                    isObject$1(combinedObject[subKey])) {
                                     combinedObject[subKey] =
                                         mergeSchemas(combinedObject[subKey], schemaValue[subKey]);
                                 }
@@ -3918,7 +3704,7 @@ function getFromSchema(schema, dataPointer, returnType = 'schema') {
         }
         if (subSchema.type === 'array' && (!isNaN(key) || key === '-')) {
             if (hasOwn(subSchema, 'items')) {
-                if (isObject$2(subSchema.items)) {
+                if (isObject$1(subSchema.items)) {
                     subSchemaFound = true;
                     subSchema = subSchema.items;
                     schemaPointer.push('items');
@@ -3931,7 +3717,7 @@ function getFromSchema(schema, dataPointer, returnType = 'schema') {
                     }
                 }
             }
-            if (!subSchemaFound && isObject$2(subSchema.additionalItems)) {
+            if (!subSchemaFound && isObject$1(subSchema.additionalItems)) {
                 subSchemaFound = true;
                 subSchema = subSchema.additionalItems;
                 schemaPointer.push('additionalItems');
@@ -3943,12 +3729,12 @@ function getFromSchema(schema, dataPointer, returnType = 'schema') {
             }
         }
         else if (subSchema.type === 'object') {
-            if (isObject$2(subSchema.properties) && hasOwn(subSchema.properties, key)) {
+            if (isObject$1(subSchema.properties) && hasOwn(subSchema.properties, key)) {
                 subSchemaFound = true;
                 subSchema = subSchema.properties[key];
                 schemaPointer.push('properties', key);
             }
-            else if (isObject$2(subSchema.additionalProperties)) {
+            else if (isObject$1(subSchema.additionalProperties)) {
                 subSchemaFound = true;
                 subSchema = subSchema.additionalProperties;
                 schemaPointer.push('additionalProperties');
@@ -4091,7 +3877,7 @@ function checkInlineType(controlType, schema, layoutNode = null) {
     }
 }
 function isInputRequired(schema, schemaPointer) {
-    if (!isObject$2(schema)) {
+    if (!isObject$1(schema)) {
         console.error('isInputRequired error: Input schema must be an object.');
         return false;
     }
@@ -4118,8 +3904,9 @@ function isInputRequired(schema, schemaPointer) {
     }
     return false;
 }
+
 function updateInputOptions(layoutNode, schema, jsf) {
-    if (!isObject$2(layoutNode) || !isObject$2(layoutNode.options)) {
+    if (!isObject$1(layoutNode) || !isObject$1(layoutNode.options)) {
         return;
     }
     let newOptions = {};
@@ -4208,7 +3995,7 @@ function getTitleMapFromOneOf(schema = {}, flatList = null, validateOnly = false
     return validateOnly ? false : titleMap;
 }
 function getControlValidators(schema) {
-    if (!isObject$2(schema)) {
+    if (!isObject$1(schema)) {
         return null;
     }
     let validators = {};
@@ -4259,7 +4046,7 @@ function getControlValidators(schema) {
     return validators;
 }
 function resolveSchemaReferences(schema, schemaRefLibrary, schemaRecursiveRefMap, dataRecursiveRefMap, arrayMap) {
-    if (!isObject$2(schema)) {
+    if (!isObject$1(schema)) {
         console.error('resolveSchemaReferences error: schema must be an object.');
         return;
     }
@@ -4360,7 +4147,7 @@ function getSubSchema(schema, pointer, schemaRefLibrary = null, schemaRecursiveR
         ]);
     }
     return JsonPointer.forEachDeepCopy(newSchema, (subSchema, subPointer) => {
-        if (isObject$2(subSchema)) {
+        if (isObject$1(subSchema)) {
             if (isString(subSchema.$ref)) {
                 const refPointer = JsonPointer.compile(subSchema.$ref);
                 if (refPointer.length && usedPointers.every(ptr => !JsonPointer.isSubPointer(refPointer, ptr, true))) {
@@ -4386,7 +4173,7 @@ function getSubSchema(schema, pointer, schemaRefLibrary = null, schemaRecursiveR
     }, true, pointer);
 }
 function combineAllOf(schema) {
-    if (!isObject$2(schema) || !isArray$2(schema.allOf)) {
+    if (!isObject$1(schema) || !isArray$2(schema.allOf)) {
         return schema;
     }
     let mergedSchema = mergeSchemas(...schema.allOf);
@@ -4766,7 +4553,7 @@ function buildFormGroupTemplate(jsf, nodeValue = null, setValues = true, schemaP
                                 null : cloneDeep(jsf.templateRefLibrary[itemRefPointer]));
                     }
                 }
-                if (schema.items.length < maxItems && isObject$2(schema.additionalItems)) {
+                if (schema.items.length < maxItems && isObject$1(schema.additionalItems)) {
                     additionalItemsPointer = schemaPointer + '/additionalItems';
                 }
             }
@@ -4853,6 +4640,7 @@ function buildFormGroup(template) {
     }
     return null;
 }
+
 function setRequiredFields(schema, formControlTemplate) {
     let fieldsRequired = false;
     if (hasOwn(schema, 'required') && !isEmpty(schema.required)) {
@@ -4871,7 +4659,7 @@ function formatFormData(formData, dataMap, recursiveRefMap, arrayMap, returnEmpt
         if (returnEmptyFields && isArray$2(value)) {
             JsonPointer.set(formattedData, dataPointer, []);
         }
-        else if (returnEmptyFields && isObject$2(value) && !isDate(value)) {
+        else if (returnEmptyFields && isObject$1(value) && !isDate(value)) {
             JsonPointer.set(formattedData, dataPointer, {});
         }
         else {
@@ -4926,7 +4714,7 @@ function formatFormData(formData, dataMap, recursiveRefMap, arrayMap, returnEmpt
     return formattedData;
 }
 function getControl(formGroup, dataPointer, returnGroup = false) {
-    if (!isObject$2(formGroup) || !JsonPointer.isJsonPointer(dataPointer)) {
+    if (!isObject$1(formGroup) || !JsonPointer.isJsonPointer(dataPointer)) {
         if (!JsonPointer.isJsonPointer(dataPointer)) {
             if (typeof dataPointer === 'string') {
                 const formControl = formGroup.get(dataPointer);
@@ -4936,7 +4724,7 @@ function getControl(formGroup, dataPointer, returnGroup = false) {
             }
             console.error(`getControl error: Invalid JSON Pointer: ${dataPointer}`);
         }
-        if (!isObject$2(formGroup)) {
+        if (!isObject$1(formGroup)) {
             console.error(`getControl error: Invalid formGroup: ${formGroup}`);
         }
         return null;
@@ -4980,7 +4768,7 @@ function buildLayout(jsf, widgetLibrary) {
             _id: uniqueId(),
             options: {},
         };
-        if (isObject$2(layoutItem)) {
+        if (isObject$1(layoutItem)) {
             Object.assign(newNode, layoutItem);
             Object.keys(newNode)
                 .filter(option => !inArray(option, [
@@ -5205,6 +4993,7 @@ function buildLayout(jsf, widgetLibrary) {
                             arrayItem.dataPointer = newNode.dataPointer + '/-' +
                                 arrayItem.dataPointer.slice(itemRefPointer.length);
                             arrayItemGroup.unshift(arrayItem);
+                            
                         }
                         else {
                             subItem.arrayItem = true;
@@ -5384,7 +5173,7 @@ function buildLayout(jsf, widgetLibrary) {
 function buildLayoutFromSchema(jsf, widgetLibrary, nodeValue = null, schemaPointer = '', dataPointer = '', arrayItem = false, arrayItemType = null, removable = null, forRefLibrary = false, dataPointerPrefix = '') {
     const schema = JsonPointer.get(jsf.schema, schemaPointer);
     if (!hasOwn(schema, 'type') && !hasOwn(schema, '$ref') &&
-        !hasOwn(schema, 'x-schema-form')) {
+        !hasOwn(schema, 'x-schema-form') || hasOwn(schema, 'system-generated')) {
         return null;
     }
     const newNodeType = getInputType(schema);
@@ -5431,7 +5220,7 @@ function buildLayoutFromSchema(jsf, widgetLibrary, nodeValue = null, schemaPoint
         if (isArray$2(schema.required) && !nodeDataMap.has('required')) {
             nodeDataMap.set('required', schema.required);
         }
-        if (isObject$2(schema.properties)) {
+        if (isObject$1(schema.properties)) {
             const newSection = [];
             const propertyKeys = schema['ui:order'] || Object.keys(schema.properties);
             if (propertyKeys.includes('*') && !hasOwn(schema.properties, '*')) {
@@ -5449,7 +5238,7 @@ function buildLayoutFromSchema(jsf, widgetLibrary, nodeValue = null, schemaPoint
                 .forEach(key => {
                 const keySchemaPointer = hasOwn(schema.properties, key) ?
                     '/properties/' + key : '/additionalProperties';
-                const innerItem = buildLayoutFromSchema(jsf, widgetLibrary, isObject$2(nodeValue) ? nodeValue[key] : null, schemaPointer + keySchemaPointer, dataPointer + '/' + key, false, null, null, forRefLibrary, dataPointerPrefix);
+                const innerItem = buildLayoutFromSchema(jsf, widgetLibrary, isObject$1(nodeValue) ? nodeValue[key] : null, schemaPointer + keySchemaPointer, dataPointer + '/' + key, false, null, null, forRefLibrary, dataPointerPrefix);
                 if (innerItem) {
                     if (isInputRequired(schema, '/' + key)) {
                         innerItem.options.required = true;
@@ -5528,11 +5317,11 @@ function buildLayoutFromSchema(jsf, widgetLibrary, nodeValue = null, schemaPoint
                     newNode.items.push(newItem);
                 }
             }
-            if (isObject$2(schema.additionalItems)) {
+            if (isObject$1(schema.additionalItems)) {
                 additionalItemsSchemaPointer = schemaPointer + '/additionalItems';
             }
         }
-        else if (isObject$2(schema.items)) {
+        else if (isObject$1(schema.items)) {
             additionalItemsSchemaPointer = schemaPointer + '/items';
         }
         if (additionalItemsSchemaPointer) {
@@ -5653,7 +5442,7 @@ function mapLayout(layout, fn, layoutPointer = '', rootLayout = layout) {
         let newLayoutPointer = layoutPointer + '/' + realIndex;
         let newNode = copy(item);
         let itemsArray = [];
-        if (isObject$2(item)) {
+        if (isObject$1(item)) {
             if (hasOwn(item, 'tabs')) {
                 item.items = item.tabs;
                 delete item.tabs;
@@ -5678,6 +5467,7 @@ function mapLayout(layout, fn, layoutPointer = '', rootLayout = layout) {
     });
     return newLayout;
 }
+
 function getLayoutNode(refNode, jsf, widgetLibrary = null, nodeValue = null) {
     if (refNode.recursiveReference && widgetLibrary) {
         const newLayoutNode = cloneDeep(refNode);
@@ -5720,7 +5510,7 @@ function buildTitleMap(titleMap, enumList, fieldRequired = true, flatList = true
         if (isArray$2(titleMap)) {
             if (enumList) {
                 for (let i of Object.keys(titleMap)) {
-                    if (isObject$2(titleMap[i])) {
+                    if (isObject$1(titleMap[i])) {
                         const value = titleMap[i].value;
                         if (enumList.includes(value)) {
                             const name = titleMap[i].name;
@@ -5969,12 +5759,6 @@ var ObjectUnsubscribedError_1 = {
 	ObjectUnsubscribedError: ObjectUnsubscribedError_2
 };
 
-var ObjectUnsubscribedError$1 = /*#__PURE__*/Object.freeze({
-	default: ObjectUnsubscribedError_1,
-	__moduleExports: ObjectUnsubscribedError_1,
-	ObjectUnsubscribedError: ObjectUnsubscribedError_2
-});
-
 var __extends$9 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -6011,23 +5795,13 @@ var SubjectSubscription = (function (_super) {
         }
     };
     return SubjectSubscription;
-}(Subscription_1$1.Subscription));
+}(Subscription_1.Subscription));
 var SubjectSubscription_2 = SubjectSubscription;
 
 
 var SubjectSubscription_1 = {
 	SubjectSubscription: SubjectSubscription_2
 };
-
-var SubjectSubscription$1 = /*#__PURE__*/Object.freeze({
-	default: SubjectSubscription_1,
-	__moduleExports: SubjectSubscription_1,
-	SubjectSubscription: SubjectSubscription_2
-});
-
-var ObjectUnsubscribedError_1$1 = ( ObjectUnsubscribedError$1 && ObjectUnsubscribedError_1 ) || ObjectUnsubscribedError$1;
-
-var SubjectSubscription_1$1 = ( SubjectSubscription$1 && SubjectSubscription_1 ) || SubjectSubscription$1;
 
 var __extends$10 = (commonjsGlobal && commonjsGlobal.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -6050,7 +5824,7 @@ var SubjectSubscriber = (function (_super) {
         this.destination = destination;
     }
     return SubjectSubscriber;
-}(Subscriber_1$1.Subscriber));
+}(Subscriber_1.Subscriber));
 /**
  * @class Subject<T>
  */
@@ -6064,7 +5838,7 @@ var Subject = (function (_super) {
         this.hasError = false;
         this.thrownError = null;
     }
-    Subject.prototype[rxSubscriber_1$1.rxSubscriber] = function () {
+    Subject.prototype[rxSubscriber.rxSubscriber] = function () {
         return new SubjectSubscriber(this);
     };
     Subject.prototype.lift = function (operator) {
@@ -6074,7 +5848,7 @@ var Subject = (function (_super) {
     };
     Subject.prototype.next = function (value) {
         if (this.closed) {
-            throw new ObjectUnsubscribedError_1$1.ObjectUnsubscribedError();
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
         if (!this.isStopped) {
             var observers = this.observers;
@@ -6087,7 +5861,7 @@ var Subject = (function (_super) {
     };
     Subject.prototype.error = function (err) {
         if (this.closed) {
-            throw new ObjectUnsubscribedError_1$1.ObjectUnsubscribedError();
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
         this.hasError = true;
         this.thrownError = err;
@@ -6102,7 +5876,7 @@ var Subject = (function (_super) {
     };
     Subject.prototype.complete = function () {
         if (this.closed) {
-            throw new ObjectUnsubscribedError_1$1.ObjectUnsubscribedError();
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
         this.isStopped = true;
         var observers = this.observers;
@@ -6120,31 +5894,31 @@ var Subject = (function (_super) {
     };
     Subject.prototype._trySubscribe = function (subscriber) {
         if (this.closed) {
-            throw new ObjectUnsubscribedError_1$1.ObjectUnsubscribedError();
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
         else {
             return _super.prototype._trySubscribe.call(this, subscriber);
         }
     };
-    /** @deprecated internal use only */ Subject.prototype._subscribe = function (subscriber) {
+    Subject.prototype._subscribe = function (subscriber) {
         if (this.closed) {
-            throw new ObjectUnsubscribedError_1$1.ObjectUnsubscribedError();
+            throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
         }
         else if (this.hasError) {
             subscriber.error(this.thrownError);
-            return Subscription_1$1.Subscription.EMPTY;
+            return Subscription_1.Subscription.EMPTY;
         }
         else if (this.isStopped) {
             subscriber.complete();
-            return Subscription_1$1.Subscription.EMPTY;
+            return Subscription_1.Subscription.EMPTY;
         }
         else {
             this.observers.push(subscriber);
-            return new SubjectSubscription_1$1.SubjectSubscription(this, subscriber);
+            return new SubjectSubscription_1.SubjectSubscription(this, subscriber);
         }
     };
     Subject.prototype.asObservable = function () {
-        var observable = new Observable_1$1.Observable();
+        var observable = new Observable_1.Observable();
         observable.source = this;
         return observable;
     };
@@ -6152,7 +5926,7 @@ var Subject = (function (_super) {
         return new AnonymousSubject(destination, source);
     };
     return Subject;
-}(Observable_1$1.Observable));
+}(Observable_1.Observable));
 var Subject_2 = Subject;
 /**
  * @class AnonymousSubject<T>
@@ -6182,13 +5956,13 @@ var AnonymousSubject = (function (_super) {
             this.destination.complete();
         }
     };
-    /** @deprecated internal use only */ AnonymousSubject.prototype._subscribe = function (subscriber) {
+    AnonymousSubject.prototype._subscribe = function (subscriber) {
         var source = this.source;
         if (source) {
             return this.source.subscribe(subscriber);
         }
         else {
-            return Subscription_1$1.Subscription.EMPTY;
+            return Subscription_1.Subscription.EMPTY;
         }
     };
     return AnonymousSubject;
@@ -6462,13 +6236,13 @@ class JsonSchemaFormService {
         this.layout = buildLayout(this, widgetLibrary);
     }
     setOptions(newOptions) {
-        if (isObject$2(newOptions)) {
+        if (isObject$1(newOptions)) {
             const addOptions = cloneDeep(newOptions);
-            if (isObject$2(addOptions.defaultOptions)) {
+            if (isObject$1(addOptions.defaultOptions)) {
                 Object.assign(this.formOptions.defautWidgetOptions, addOptions.defaultOptions);
                 delete addOptions.defaultOptions;
             }
-            if (isObject$2(addOptions.defautWidgetOptions)) {
+            if (isObject$1(addOptions.defautWidgetOptions)) {
                 Object.assign(this.formOptions.defautWidgetOptions, addOptions.defautWidgetOptions);
                 delete addOptions.defautWidgetOptions;
             }
@@ -6618,7 +6392,7 @@ class JsonSchemaFormService {
         return result;
     }
     initializeControl(ctx, bind = true) {
-        if (!isObject$2(ctx)) {
+        if (!isObject$1(ctx)) {
             return false;
         }
         if (isEmpty(ctx.options)) {
@@ -6657,7 +6431,7 @@ class JsonSchemaFormService {
         if (isEmpty(errors)) {
             return null;
         }
-        if (!isObject$2(validationMessages)) {
+        if (!isObject$1(validationMessages)) {
             validationMessages = {};
         }
         const addSpaces = string => string[0].toUpperCase() + (string.slice(1) || '')
@@ -6689,7 +6463,7 @@ class JsonSchemaFormService {
         if (isArray$2(ctx.options.copyValueTo)) {
             for (const item of ctx.options.copyValueTo) {
                 const targetControl = getControl(this.formGroup, item);
-                if (isObject$2(targetControl) && typeof targetControl.setValue === 'function') {
+                if (isObject$1(targetControl) && typeof targetControl.setValue === 'function') {
                     targetControl.setValue(value);
                     targetControl.markAsDirty();
                 }
@@ -7342,6 +7116,7 @@ NoneComponent.decorators = [
                 template: ``,
             },] },
 ];
+NoneComponent.ctorParameters = () => [];
 NoneComponent.propDecorators = {
     "layoutNode": [{ type: Input },],
     "layoutIndex": [{ type: Input },],
@@ -7974,6 +7749,7 @@ class TabsComponent {
             });
             this.updateControl();
         }
+        
         this.selectedItem = index;
     }
     updateControl() {
@@ -8311,6 +8087,7 @@ class Framework {
 Framework.decorators = [
     { type: Injectable },
 ];
+Framework.ctorParameters = () => [];
 
 class FrameworkLibraryService {
     constructor(frameworks, widgetLibrary) {
@@ -8533,51 +8310,51 @@ class JsonSchemaFormComponent {
         this.jsf.setOptions({ debug: !!this.debug });
         let loadExternalAssets = this.loadExternalAssets || false;
         let framework = this.framework || 'default';
-        if (isObject$2(this.options)) {
+        if (isObject$1(this.options)) {
             this.jsf.setOptions(this.options);
             loadExternalAssets = this.options.loadExternalAssets || loadExternalAssets;
             framework = this.options.framework || framework;
         }
-        if (isObject$2(this.form) && isObject$2(this.form.options)) {
+        if (isObject$1(this.form) && isObject$1(this.form.options)) {
             this.jsf.setOptions(this.form.options);
             loadExternalAssets = this.form.options.loadExternalAssets || loadExternalAssets;
             framework = this.form.options.framework || framework;
         }
-        if (isObject$2(this.widgets)) {
+        if (isObject$1(this.widgets)) {
             this.jsf.setOptions({ widgets: this.widgets });
         }
         this.frameworkLibrary.setLoadExternalAssets(loadExternalAssets);
         this.frameworkLibrary.setFramework(framework);
         this.jsf.framework = this.frameworkLibrary.getFramework();
-        if (isObject$2(this.jsf.formOptions.widgets)) {
+        if (isObject$1(this.jsf.formOptions.widgets)) {
             for (let widget of Object.keys(this.jsf.formOptions.widgets)) {
                 this.widgetLibrary.registerWidget(widget, this.jsf.formOptions.widgets[widget]);
             }
         }
-        if (isObject$2(this.form) && isObject$2(this.form.tpldata)) {
+        if (isObject$1(this.form) && isObject$1(this.form.tpldata)) {
             this.jsf.setTpldata(this.form.tpldata);
         }
     }
     initializeSchema() {
-        if (isObject$2(this.schema)) {
+        if (isObject$1(this.schema)) {
             this.jsf.AngularSchemaFormCompatibility = true;
             this.jsf.schema = cloneDeep(this.schema);
         }
-        else if (hasOwn(this.form, 'schema') && isObject$2(this.form.schema)) {
+        else if (hasOwn(this.form, 'schema') && isObject$1(this.form.schema)) {
             this.jsf.schema = cloneDeep(this.form.schema);
         }
-        else if (isObject$2(this.JSONSchema)) {
+        else if (isObject$1(this.JSONSchema)) {
             this.jsf.ReactJsonSchemaFormCompatibility = true;
             this.jsf.schema = cloneDeep(this.JSONSchema);
         }
-        else if (hasOwn(this.form, 'JSONSchema') && isObject$2(this.form.JSONSchema)) {
+        else if (hasOwn(this.form, 'JSONSchema') && isObject$1(this.form.JSONSchema)) {
             this.jsf.ReactJsonSchemaFormCompatibility = true;
             this.jsf.schema = cloneDeep(this.form.JSONSchema);
         }
-        else if (hasOwn(this.form, 'properties') && isObject$2(this.form.properties)) {
+        else if (hasOwn(this.form, 'properties') && isObject$1(this.form.properties)) {
             this.jsf.schema = cloneDeep(this.form);
         }
-        else if (isObject$2(this.form)) {
+        else if (isObject$1(this.form)) {
         }
         if (!isEmpty(this.jsf.schema)) {
             if (inArray('object', this.jsf.schema.type)) {
@@ -8591,9 +8368,9 @@ class JsonSchemaFormComponent {
                 this.objectWrap = true;
             }
             else if (!hasOwn(this.jsf.schema, 'type')) {
-                if (isObject$2(this.jsf.schema.properties) ||
-                    isObject$2(this.jsf.schema.patternProperties) ||
-                    isObject$2(this.jsf.schema.additionalProperties)) {
+                if (isObject$1(this.jsf.schema.properties) ||
+                    isObject$1(this.jsf.schema.patternProperties) ||
+                    isObject$1(this.jsf.schema.additionalProperties)) {
                     this.jsf.schema.type = 'object';
                 }
                 else {
@@ -8627,12 +8404,12 @@ class JsonSchemaFormComponent {
             this.jsf.formValues = cloneDeep(this.ngModel);
             this.formValuesInput = 'ngModel';
         }
-        else if (isObject$2(this.form) && hasValue(this.form.value)) {
+        else if (isObject$1(this.form) && hasValue(this.form.value)) {
             this.jsf.JsonFormCompatibility = true;
             this.jsf.formValues = cloneDeep(this.form.value);
             this.formValuesInput = 'form.value';
         }
-        else if (isObject$2(this.form) && hasValue(this.form.data)) {
+        else if (isObject$1(this.form) && hasValue(this.form.data)) {
             this.jsf.formValues = cloneDeep(this.form.data);
             this.formValuesInput = 'form.data';
         }
@@ -8651,9 +8428,9 @@ class JsonSchemaFormComponent {
     }
     initializeLayout() {
         const fixJsonFormOptions = (layout) => {
-            if (isObject$2(layout) || isArray$2(layout)) {
+            if (isObject$1(layout) || isArray$2(layout)) {
                 forEach(layout, (value, key) => {
-                    if (hasOwn(value, 'options') && isObject$2(value.options)) {
+                    if (hasOwn(value, 'options') && isObject$1(value.options)) {
                         value.titleMap = value.options;
                         delete value.options;
                     }
@@ -8679,7 +8456,7 @@ class JsonSchemaFormComponent {
             this.jsf.layout = ['*'];
         }
         let alternateLayout = null;
-        if (isObject$2(this.UISchema)) {
+        if (isObject$1(this.UISchema)) {
             this.jsf.ReactJsonSchemaFormCompatibility = true;
             alternateLayout = cloneDeep(this.UISchema);
         }
@@ -8915,6 +8692,7 @@ WidgetLibraryModule.decorators = [
                 providers: [JsonSchemaFormService]
             },] },
 ];
+WidgetLibraryModule.ctorParameters = () => [];
 
 class NoFrameworkComponent {
 }
@@ -8928,6 +8706,7 @@ NoFrameworkComponent.decorators = [
       [layoutNode]="layoutNode"></select-widget-widget>`,
             },] },
 ];
+NoFrameworkComponent.ctorParameters = () => [];
 NoFrameworkComponent.propDecorators = {
     "layoutNode": [{ type: Input },],
     "layoutIndex": [{ type: Input },],
@@ -8944,6 +8723,7 @@ class NoFramework extends Framework {
 NoFramework.decorators = [
     { type: Injectable },
 ];
+NoFramework.ctorParameters = () => [];
 
 class NoFrameworkModule {
     static forRoot() {
@@ -8963,6 +8743,7 @@ NoFrameworkModule.decorators = [
                 entryComponents: [NoFrameworkComponent]
             },] },
 ];
+NoFrameworkModule.ctorParameters = () => [];
 
 class JsonSchemaFormModule {
     static forRoot(...frameworks) {
@@ -8988,6 +8769,7 @@ JsonSchemaFormModule.decorators = [
                 exports: [JsonSchemaFormComponent, WidgetLibraryModule]
             },] },
 ];
+JsonSchemaFormModule.ctorParameters = () => [];
 
 class FlexLayoutRootComponent {
     constructor(jsf) {
@@ -10267,6 +10049,7 @@ class MaterialTabsComponent {
             });
             this.updateControl();
         }
+        
         this.selectedItem = index;
     }
     updateControl() {
@@ -10591,6 +10374,7 @@ class MaterialDesignFramework extends Framework {
 MaterialDesignFramework.decorators = [
     { type: Injectable },
 ];
+MaterialDesignFramework.ctorParameters = () => [];
 
 const MATERIAL_FRAMEWORK_COMPONENTS = [
     FlexLayoutRootComponent, FlexLayoutSectionComponent,
@@ -10632,6 +10416,7 @@ MaterialDesignFrameworkModule.decorators = [
                 entryComponents: [...MATERIAL_FRAMEWORK_COMPONENTS]
             },] },
 ];
+MaterialDesignFrameworkModule.ctorParameters = () => [];
 
 class Bootstrap3FrameworkComponent {
     constructor(changeDetector, jsf) {
@@ -10926,6 +10711,7 @@ class Bootstrap3Framework extends Framework {
 Bootstrap3Framework.decorators = [
     { type: Injectable },
 ];
+Bootstrap3Framework.ctorParameters = () => [];
 
 class Bootstrap3FrameworkModule {
     static forRoot() {
@@ -10945,6 +10731,7 @@ Bootstrap3FrameworkModule.decorators = [
                 entryComponents: [Bootstrap3FrameworkComponent]
             },] },
 ];
+Bootstrap3FrameworkModule.ctorParameters = () => [];
 
 class Bootstrap4FrameworkComponent {
     constructor(changeDetector, jsf) {
@@ -11236,6 +11023,7 @@ class Bootstrap4Framework extends Framework {
 Bootstrap4Framework.decorators = [
     { type: Injectable },
 ];
+Bootstrap4Framework.ctorParameters = () => [];
 
 class Bootstrap4FrameworkModule {
     static forRoot() {
@@ -11255,5 +11043,6 @@ Bootstrap4FrameworkModule.decorators = [
                 entryComponents: [Bootstrap4FrameworkComponent]
             },] },
 ];
+Bootstrap4FrameworkModule.ctorParameters = () => [];
 
-export { MATERIAL_FRAMEWORK_COMPONENTS as ɵd, ANGULAR_MATERIAL_MODULES as ɵb, JSON_SCHEMA_FORM_VALUE_ACCESSOR as ɵa, BASIC_WIDGETS as ɵc, _executeValidators, _executeAsyncValidators, _mergeObjects, _mergeErrors, isDefined, hasValue, isEmpty, isString, isNumber, isInteger, isBoolean, isFunction$2 as isFunction, isObject$2 as isObject, isArray$2 as isArray, isDate, isMap, isSet, isPromise, isObservable, getType, isType, isPrimitive, toJavaScriptType, toSchemaType, _toPromise, toObservable, inArray, xor, addClasses, copy, forEach, forEachCopy, hasOwn, mergeFilteredObject, uniqueItems, commonItems, fixTitle, toTitleCase, JsonPointer, JsonValidators, buildSchemaFromLayout, buildSchemaFromData, getFromSchema, removeRecursiveReferences, getInputType, checkInlineType, isInputRequired, updateInputOptions, getTitleMapFromOneOf, getControlValidators, resolveSchemaReferences, getSubSchema, combineAllOf, fixRequiredArrayProperties, convertSchemaToDraft6, mergeSchemas, buildFormGroupTemplate, buildFormGroup, formatFormData, getControl, setRequiredFields, buildLayout, buildLayoutFromSchema, mapLayout, getLayoutNode, buildTitleMap, dateToString, stringToDate, findDate, OrderableDirective, JsonSchemaFormComponent, JsonSchemaFormService, JsonSchemaFormModule, WidgetLibraryService, WidgetLibraryModule, AddReferenceComponent, OneOfComponent, ButtonComponent, CheckboxComponent, CheckboxesComponent, FileComponent, HiddenComponent, InputComponent, MessageComponent, NoneComponent, NumberComponent, RadiosComponent, RootComponent, SectionComponent, SelectComponent, SelectFrameworkComponent, SelectWidgetComponent, SubmitComponent, TabComponent, TabsComponent, TemplateComponent, TextareaComponent, FrameworkLibraryService, Framework, NoFramework, NoFrameworkComponent, NoFrameworkModule, MaterialDesignFramework, FlexLayoutRootComponent, FlexLayoutSectionComponent, MaterialAddReferenceComponent, MaterialOneOfComponent, MaterialButtonComponent, MaterialButtonGroupComponent, MaterialCheckboxComponent, MaterialCheckboxesComponent, MaterialChipListComponent, MaterialDatepickerComponent, MaterialFileComponent, MaterialInputComponent, MaterialNumberComponent, MaterialRadiosComponent, MaterialSelectComponent, MaterialSliderComponent, MaterialStepperComponent, MaterialTabsComponent, MaterialTextareaComponent, MaterialDesignFrameworkComponent, MaterialDesignFrameworkModule, Bootstrap3Framework, Bootstrap3FrameworkComponent, Bootstrap3FrameworkModule, Bootstrap4Framework, Bootstrap4FrameworkComponent, Bootstrap4FrameworkModule };
+export { MATERIAL_FRAMEWORK_COMPONENTS as ɵd, ANGULAR_MATERIAL_MODULES as ɵb, JSON_SCHEMA_FORM_VALUE_ACCESSOR as ɵa, BASIC_WIDGETS as ɵc, _executeValidators, _executeAsyncValidators, _mergeObjects, _mergeErrors, isDefined, hasValue, isEmpty, isString, isNumber, isInteger, isBoolean, isFunction$1 as isFunction, isObject$1 as isObject, isArray$2 as isArray, isDate, isMap, isSet, isPromise, isObservable, getType, isType, isPrimitive, toJavaScriptType, toSchemaType, _toPromise, toObservable, inArray, xor, addClasses, copy, forEach, forEachCopy, hasOwn, mergeFilteredObject, uniqueItems, commonItems, fixTitle, toTitleCase, JsonPointer, JsonValidators, buildSchemaFromLayout, buildSchemaFromData, getFromSchema, removeRecursiveReferences, getInputType, checkInlineType, isInputRequired, updateInputOptions, getTitleMapFromOneOf, getControlValidators, resolveSchemaReferences, getSubSchema, combineAllOf, fixRequiredArrayProperties, convertSchemaToDraft6, mergeSchemas, buildFormGroupTemplate, buildFormGroup, formatFormData, getControl, setRequiredFields, buildLayout, buildLayoutFromSchema, mapLayout, getLayoutNode, buildTitleMap, dateToString, stringToDate, findDate, OrderableDirective, JsonSchemaFormComponent, JsonSchemaFormService, JsonSchemaFormModule, WidgetLibraryService, WidgetLibraryModule, AddReferenceComponent, OneOfComponent, ButtonComponent, CheckboxComponent, CheckboxesComponent, FileComponent, HiddenComponent, InputComponent, MessageComponent, NoneComponent, NumberComponent, RadiosComponent, RootComponent, SectionComponent, SelectComponent, SelectFrameworkComponent, SelectWidgetComponent, SubmitComponent, TabComponent, TabsComponent, TemplateComponent, TextareaComponent, FrameworkLibraryService, Framework, NoFramework, NoFrameworkComponent, NoFrameworkModule, MaterialDesignFramework, FlexLayoutRootComponent, FlexLayoutSectionComponent, MaterialAddReferenceComponent, MaterialOneOfComponent, MaterialButtonComponent, MaterialButtonGroupComponent, MaterialCheckboxComponent, MaterialCheckboxesComponent, MaterialChipListComponent, MaterialDatepickerComponent, MaterialFileComponent, MaterialInputComponent, MaterialNumberComponent, MaterialRadiosComponent, MaterialSelectComponent, MaterialSliderComponent, MaterialStepperComponent, MaterialTabsComponent, MaterialTextareaComponent, MaterialDesignFrameworkComponent, MaterialDesignFrameworkModule, Bootstrap3Framework, Bootstrap3FrameworkComponent, Bootstrap3FrameworkModule, Bootstrap4Framework, Bootstrap4FrameworkComponent, Bootstrap4FrameworkModule };
